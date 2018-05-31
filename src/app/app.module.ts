@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { MatMenuModule, MatButtonModule, MatIconModule, MatCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -22,7 +24,8 @@ import { BoardComponent } from './board/board.component';
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,13 +4,16 @@
 </div>
 
 <div class="boards-wrapper">
-  <h2>All of your boards</h2>
-  <div id="boards">
-    <a class="board" *ngFor="let board of boards" [routerLink]="['/b', board._id]">
-      <span class="title">{{board?.title}}</span>
-    </a>
-    <a href="#" class="board add-board" (click)="addBoard()">
-      <span class="title">Add board</span>
-    </a>
+  <h2>All of your boards (Amount: {{ boardCount }})</h2>
+
+  <div class="col" >
+      <p class="boardContainer" *ngFor="let board of boards">
+        {{ board }}
+      </p>
   </div>
-</div>
+
+  <form>
+    <input type="text" class="txt" name="item" placeholder="Life goal" [(ngModel)]="goalText">
+    <input type="submit" class="btn" [value]="labelText" (click)="addItem()" >
+    <p>{{ goalText }}</p>
+  </form>
