@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {BoardService} from '../board/board.service';
+import {Board} from '../board/board'
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+
 }
