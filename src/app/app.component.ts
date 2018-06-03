@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
-
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
+  selector: 'app-root', templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
-  animations: [
-
-    
-  ]
 })
 
 export class AppComponent implements OnInit {
@@ -21,7 +14,8 @@ export class AppComponent implements OnInit {
 
   boards = [];
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
     this.boardCount = this.boards.length;
