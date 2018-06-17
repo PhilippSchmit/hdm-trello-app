@@ -1,0 +1,31 @@
+<div class="list-item">
+  <div *ngIf="!(editing$ | async); else editListName" class="list-header">
+    <h3>
+      {{ listName }}
+    </h3>
+    <mat-icon (click)="editing$.next(true)" class="action-icon">edit</mat-icon>
+  </div>
+
+  <ng-template #editListName>
+    <div class="list-header">
+      <mat-form-field>
+        <input matInput [(ngModel)]="listName">
+      </mat-form-field>
+      <mat-icon class="action-icon" (click)="onSaveListName()">save</mat-icon>
+      <mat-icon class="action-icon" (click)="editing$.next(false)">cancel</mat-icon>
+    </div>
+  </ng-template>
+
+  <div
+    class="cards-container"
+    [dragula]="list?.idBoard"
+    [dragulaModel]="cards$ | async"
+    [attr.data-list-id]="list.id"
+  >
+    <div *ngFor="let card of cards$ | async" [attr.data-card-id]="card.id">
+      <mat-card (click)="showCardDetail(card)">
+        {{ card.name }}
+      </mat-card>
+    </div>
+  </div>
+</div>
