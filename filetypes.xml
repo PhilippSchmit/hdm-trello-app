@@ -1,0 +1,9 @@
+<application>
+  <component name="FileTypeManager" version="17">
+    <extensionMap>
+      <removed_mapping ext="md" type="Markdown" />
+      <mapping pattern="list" type="TypeScript" />
+      <mapping ext="md" type="XHTML" />
+    </extensionMap>
+  </component>
+</application>
