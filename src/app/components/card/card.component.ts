@@ -56,5 +56,14 @@ export class CardComponent implements OnInit {
     });
   }
 
+  public deleteCard() {
+    this.cardService.deleteCardById(this.card.id, {
+      name: this.cardName,
+      desc: this.cardDescription,
+    }).subscribe(result => {
+      this.card = result;
+      this.editing$.next(false);
+    });
+  }
 
 }

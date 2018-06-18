@@ -43,6 +43,10 @@ export class ListComponent implements OnInit {
     );
   }
 
+  unshowCardDetail(card: any) {
+    this.dialog.closeAll();
+  }
+
   async onSaveListName() {
     if (this.listName === this.list.name) {
       this.editing$.next(false);

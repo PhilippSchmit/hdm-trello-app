@@ -5,9 +5,15 @@
         <input [readonly]="!(editing$ | async)" matInput [(ngModel)]="cardName">
       </mat-form-field>
     </mat-card-title>
-    <mat-icon>
+    <mat-card-actions>
+      <mat-icon
+        *ngIf="!(editing$ | async)"
+        (click)="deleteCard()"
+        (click)="unshowCardDetail()">
       delete
-    </mat-icon>
+      </mat-icon>
+    </mat-card-actions>
+
   </mat-card-header>
   <mat-card-content>
     <mat-form-field>
