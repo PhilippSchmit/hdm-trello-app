@@ -1,11 +1,9 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CardService } from '../../services/card/card.service';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { DragulaService } from 'ng2-dragula';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { CardComponent } from '../card/card.component';
 import { ListService } from '../../services/list/list.service';
-import { switchMap, mapTo, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -24,7 +22,6 @@ export class ListComponent implements OnInit {
     public dialog: MatDialog,
     private cardService: CardService,
     private listService: ListService,
-    private dragulaService: DragulaService,
   ) { }
 
   ngOnInit() {
@@ -54,9 +51,9 @@ export class ListComponent implements OnInit {
     }
     this.listService
       .updateListById(
-      this.list.id, {
-        name: this.listName,
-      })
+        this.list.id, {
+          name: this.listName,
+        })
       .subscribe(() => {
         this.editing$.next(false);
       });

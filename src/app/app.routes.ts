@@ -1,6 +1,5 @@
 import { Route } from '@angular/router';
-import { BoardListComponent } from './components/board-list/board-list.component';
-import { BoardComponent } from './components/board/board.component';
+import { BoardListComponent, BoardComponent, CalendarBoardComponent } from './components';
 
 export const rootRoutes: Route[] = [
   {
@@ -10,5 +9,9 @@ export const rootRoutes: Route[] = [
   {
     path: 'boards/:boardId/:boardName',
     component: BoardComponent,
+  },
+  {
+    path: 'calendar-board',
+    component: CalendarBoardComponent,
   }
 ];

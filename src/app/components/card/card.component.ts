@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { Card } from '../../models/card';
 import { CardService } from '../../services/card/card.service';
-import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { FormControl } from '@angular/forms';
 
 import * as moment from 'moment';
@@ -33,11 +33,11 @@ export class CardComponent implements OnInit {
   ) {
     this.dueDate.valueChanges
       .subscribe((date: moment.Moment) => {
-      const formattedDate = date.format('DD.MM.YYYY');
-      this.cardService.updateCardById(this.card.id, {
-        due: formattedDate,
-      }).subscribe(console.log);
-    });
+        const formattedDate = date.format('DD.MM.YYYY');
+        this.cardService.updateCardById(this.card.id, {
+          due: formattedDate,
+        }).subscribe(console.log);
+      });
   }
 
   ngOnInit() {
@@ -60,10 +60,7 @@ export class CardComponent implements OnInit {
     this.cardService.deleteCardById(this.card.id, {
       name: this.cardName,
       desc: this.cardDescription,
-    }).subscribe(result => {
-      this.card = result;
-      this.editing$.next(false);
-    });
+    }).subscribe(_ => this.dialogRef.close());
   }
 
 }

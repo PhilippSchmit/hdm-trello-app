@@ -1,4 +1,4 @@
-<mat-card >
+<mat-card>
   <mat-card-content>
     <div class="main-nav">
       <div>
@@ -24,6 +24,12 @@
             <mat-icon>notifications_off</mat-icon>
             <span>Disable alerts</span>
           </button>
+          <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon>
+            <a routerLink="calendar-board">
+              <span>Calendar</span>
+            </a>
+          </button>
         </mat-menu>
 
         <button mat-fab color="white" [matMenuTriggerFor]="info">
@@ -40,7 +46,7 @@
           </button>
         </mat-menu>
       </div>
-  </div>
+    </div>
     <mat-menu #subMenu="matMenu">
       <button mat-menu-item>General</button>
       <button mat-menu-item>Display</button>

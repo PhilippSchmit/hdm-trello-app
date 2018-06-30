@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { UserService } from './services/user/user.service';
-import { switchMap, filter, map } from 'rxjs/operators';
+import { filter, switchMapTo } from 'rxjs/operators';
 import { BoardService } from './services/board/board.service';
 import { Observable } from 'rxjs';
-
+import { Board } from './models/board';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
 
-  public boards$: Observable<any>;
+  public boards$: Observable<Board[]>;
   public newBoardName: string;
 
   constructor(
@@ -24,8 +23,8 @@ export class AppComponent implements OnInit {
       .getUser()
       .pipe(
         filter(user => user),
-        switchMap(user => this.boardService.getBoards()),
-      );
+        switchMapTo(this.boardService.getBoards()),
+    );
   }
 
   ngOnInit() {

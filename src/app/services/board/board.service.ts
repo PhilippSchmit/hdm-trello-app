@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TrelloService } from '../trello/trello.service';
 import { UserService } from '../user/user.service';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap, skipWhile } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Board } from '../../models/board';
 
@@ -15,11 +15,12 @@ export class BoardService {
     private userService: UserService,
   ) { }
 
-  public getBoards(): Observable<Board> {
+  public getBoards(): Observable<Board[]> {
     return this.userService
       .getUser()
       .pipe(
-        switchMap<any, Board>(user => this.trelloService.get<Board>(`/members/${user.id}/boards`))
+        skipWhile(user => !user),
+        switchMap<any, Board[]>(user => this.trelloService.get<Board[]>(`/members/${user.id}/boards`))
       );
   }
 
