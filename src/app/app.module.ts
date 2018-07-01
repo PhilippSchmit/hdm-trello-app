@@ -1,7 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatFormFieldModule, MatDatepickerModule } from '@angular/material';
-import { MatMenuModule, MatIconModule, MatDialogModule, MatCardModule, MatListModule } from '@angular/material';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatDatepickerModule,
+  MatGridListModule,
+  MatMenuModule,
+  MatIconModule,
+  MatDialogModule,
+  MatCardModule,
+  MatListModule,
+  MatProgressSpinnerModule,
+} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -18,7 +32,6 @@ import {
   CalendarBoardComponent,
   CardComponent,
   ListComponent,
-  ListViewComponent,
   MenuComponent,
 } from './components';
 
@@ -26,6 +39,9 @@ import {
   HttpInterceptorService,
   TrelloService,
 } from './services';
+import { ObservableMediaProvider } from '@angular/flex-layout';
+
+registerLocaleData(localeDe, 'de');
 
 @NgModule({
   declarations: [
@@ -35,7 +51,6 @@ import {
     CardComponent,
     ListComponent,
     BoardListComponent,
-    ListViewComponent,
     CalendarBoardComponent,
   ],
   entryComponents: [
@@ -58,6 +73,8 @@ import {
     MatDatepickerModule,
     MatFormFieldModule,
     MatListModule,
+    MatGridListModule,
+    MatProgressSpinnerModule,
     MatCardModule,
     FormsModule,
     RouterModule.forRoot(rootRoutes),
@@ -69,6 +86,11 @@ import {
       useClass: HttpInterceptorService,
       multi: true
     },
+    {
+      provide: LOCALE_ID,
+      useValue: 'de',
+    },
+    ObservableMediaProvider,
   ],
   bootstrap: [AppComponent]
 })

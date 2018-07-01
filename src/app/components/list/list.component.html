@@ -3,7 +3,10 @@
     <h3>
       {{ listName }}
     </h3>
-    <mat-icon (click)="editing$.next(true)" class="action-icon">edit</mat-icon>
+    <mat-divider [vertical]="true"></mat-divider>
+    <button mat-icon-button (click)="editing$.next(true)">
+      <mat-icon>edit</mat-icon>
+    </button>
   </div>
 
   <ng-template #editListName>
@@ -16,13 +19,8 @@
     </div>
   </ng-template>
 
-  <div
-    class="cards-container"
-    [dragula]="list?.idBoard"
-    [dragulaModel]="cards$ | async"
-    [attr.data-list-id]="list.id"
-  >
-    <div *ngFor="let card of cards$ | async" [attr.data-card-id]="card.id">
+  <div class="cards-container" [dragula]="list?.idBoard" [dragulaModel]="cards" [attr.data-list-id]="list.id">
+    <div *ngFor="let card of cards" [attr.data-card-id]="card.id">
       <mat-card (click)="showCardDetail(card)">
         {{ card.name }}
       </mat-card>

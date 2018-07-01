@@ -51,7 +51,7 @@ export class CardService {
       .put<Card>(`/cards/${cardId}`, data);
   }
 
-  public deleteCardById(cardId: string, data: any) {
-    return this.trelloService.delete(`/cards/${cardId}`, data);
+  public deleteCardById(cardId: string) {
+    return this.trelloService.delete(`/cards/${cardId}`);
   }
 }

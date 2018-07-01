@@ -1,36 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { BoardService } from '../../services/board/board.service';
-import { Observable } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { filter, switchMap, take, map, tap } from 'rxjs/operators';
+import { Board } from '../../models/board';
+import { MediaChange, ObservableMedia } from '@angular/flex-layout';
+import { MatGridList } from '@angular/material';
+import { LoadingService } from '../../services';
 
 @Component({
   selector: 'app-board-list',
   templateUrl: './board-list.component.html',
-  styleUrls: ['./board-list.component.css']
 })
-export class BoardListComponent implements OnInit {
+export class BoardListComponent implements AfterContentInit {
 
-  public boards$: Observable<any>;
+  public gridColumns$ = new BehaviorSubject(2);
+  public boards$: Observable<Board[]>;
   public newBoardName: string;
+  private gridColumnsByBreakpoint = {
+    xl: 8,
+    lg: 6,
+    md: 4,
+    sm: 2,
+    xs: 1,
+  };
 
   constructor(
     private userService: UserService,
     private boardService: BoardService,
+    private observableMedia: ObservableMedia,
+    private loadingService: LoadingService,
   ) {
     this.boards$ = this.userService
       .getUser()
       .pipe(
         filter(user => user),
+        tap(_ => this.loadingService.show()),
         switchMap(user => this.boardService.getBoards()),
+        tap(_ => this.loadingService.hide()),
+    );
+
+    this.observableMedia
+      .asObservable()
+      .subscribe(change =>
+        this.gridColumns$.next(this.gridColumnsByBreakpoint[change.mqAlias])
       );
   }
 
-  public ngOnInit() {}
+  ngAfterContentInit() {
+
+  }
 
   public createBoard() {
     this.boardService
       .create(this.newBoardName)
+      .pipe(take(1))
       .subscribe(() => {
         this.boards$ = this.boardService.getBoards();
         this.newBoardName = '';

@@ -1,24 +1,24 @@
 <div class="boards-wrapper">
   <h2>All of your boards (Amount: {{ (boards$ | async)?.length }})</h2>
 
-  <mat-list>
-    <mat-list-item *ngFor="let board of boards$ | async" [routerLink]="['boards', board.id, board.name]">
-      {{ board.name }}
-    </mat-list-item>
-  </mat-list>
+  <div class="add-board-container">
+    <h4>Create a new board</h4>
+    <div class="add-board-form">
 
-  <div>
-    <h2>Create a new board</h2>
-    <mat-form-field>
-      <input matInput [(ngModel)]="newBoardName">
-    </mat-form-field>
-    <button
-      mat-raised-button
-      type="button"
-      (click)="createBoard()"
-      [disabled]="!newBoardName"
-    >
-      <mat-icon>add</mat-icon>
-    </button>
+      <mat-form-field>
+        <input matInput [(ngModel)]="newBoardName">
+      </mat-form-field>
+      <button mat-raised-button type="button" (click)="createBoard()" [disabled]="!newBoardName">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
+
+  <mat-grid-list #grid [cols]="gridColumns$ | async" gutterSize="1rem" rowHeight="3:1">
+    <mat-grid-tile class="board-list-tile" *ngFor="let board of boards$ | async" [routerLink]="['boards', board.id, board.name]">
+      <div class="board-list-item">
+        <h3>{{ board.name }}</h3>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>

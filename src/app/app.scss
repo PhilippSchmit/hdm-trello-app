@@ -1,0 +1,160 @@
+@import './variables';
+@import './fonts';
+
+body {
+  font-family: 'Roboto Slab';
+  margin: 0;
+  background-color: $color-bg;
+}
+
+// Override mat-dialog style
+.card-detail-container  {
+  .mat-dialog-container {
+    padding: 0;
+  }
+}
+
+.board-list-item {
+  align-items: flex-start;
+  display: flex;
+  height: 100%;
+  justify-content: flex-start;
+  width: 100%;
+
+  h3 {
+    margin: $margin;
+  }
+}
+
+.add-board-container {
+  .add-board-form {
+    padding: $padding 0;
+    display: flex;
+    justify-content: space-between;
+    width: calc(50% - #{$grid-gutter-size / 2});
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+    
+    mat-form-field, button {
+      max-height: $form-field-height;
+    }
+    
+    mat-form-field {
+      line-height: unset;
+    }
+  }
+
+  h4 {
+    margin: 0;
+  }
+}
+
+.spinner-overlay {
+  align-items: center;
+  background-color: $color-bg;
+  display: flex;
+  height: calc(100vh - 100px);
+  justify-content: center;
+  position: fixed;
+  top: 100px;
+  width: 100vw;
+}
+
+.router-container {
+  padding: 0 $padding-large $padding-large;
+}
+
+.board-container {
+  background-color: $color-bg;
+  text-decoration-color: $color-primary;
+}
+
+.edit-icon {
+  opacity: .5;
+}
+
+.list-item {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-header {
+  display: flex;
+  justify-content: center;
+}
+
+.board-list-tile {
+  background-color: $color-secondary;
+}
+
+.list-header {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.cards-container {
+  height: 90%;
+  min-height: 100px;
+}
+
+.action-icon {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-grow: 1;
+  font-size: inherit;
+  justify-content: center;
+  opacity: .5;
+
+  &:hover {
+    opacity: .8;
+  }
+}
+
+.lists-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.card-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mat-card-title {
+  margin-bottom: 0;
+}
+
+.mat-card {
+  background-color: $color-primary;
+  max-width: 100%;
+  text-align: center;
+  width: auto;
+}
+
+.mat-icon-button {
+  color: $color-bg--button;
+}
+
+.mat-icon {
+  color: $color-primary;
+
+}
+
+.main-nav {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.mat-fab {
+  margin: 6px;
+  text-align: left;
+  vertical-align: middle;
+}

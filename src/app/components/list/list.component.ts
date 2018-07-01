@@ -1,22 +1,24 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CardService } from '../../services/card/card.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { CardComponent } from '../card/card.component';
 import { ListService } from '../../services/list/list.service';
+import { Card } from '../../models/card';
+import { switchMap, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
 
   @Input()
   public list;
-  public cards$: Observable<any>;
+  public cards: Card[];
   public editing$ = new BehaviorSubject<boolean>(false);
   public listName: string;
+  public cardDialogRef: MatDialogRef<CardComponent>;
 
   constructor(
     public dialog: MatDialog,
@@ -25,23 +27,36 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cards$ = this.cardService
-      .getCardsByListId(this.list.id);
-
+    this.fetchCards();
     this.listName = this.list.name;
   }
 
+  private async fetchCards() {
+    this.cards = await this.cardService
+      .getCardsByListId(this.list.id)
+      .toPromise();
+  }
+
   showCardDetail(card: any) {
-    this.dialog.open(
+    this.cardDialogRef = this.dialog.open(
       CardComponent, {
         data: { card },
         panelClass: 'card-detail-container',
       }
     );
+
+    this.cardDialogRef.componentInstance.delete
+      .pipe(
+        switchMap(cardId => this.cardService.deleteCardById(cardId)),
+        take(1),
+    ).subscribe(_ => {
+      this.cardDialogRef.close({ changed: true });
+      this.fetchCards();
+    });
   }
 
   unshowCardDetail(card: any) {
-    this.dialog.closeAll();
+    this.cardDialogRef.close();
   }
 
   async onSaveListName() {

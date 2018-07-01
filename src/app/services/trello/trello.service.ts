@@ -31,8 +31,8 @@ export class TrelloService {
       .put<T>(`${this.trelloApiUrl}${resource}`, data);
   }
 
-  public delete(resource: string, data: any) {
+  public delete(resource: string) {
     return this.http
-      .delete(`${this.trelloApiUrl}${resource}`, data);
+      .delete(`${this.trelloApiUrl}${resource}`);
   }
 }

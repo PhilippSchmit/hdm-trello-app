@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { Observable, Subject } from 'rxjs';
 import { DragulaService } from 'ng2-dragula';
@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnDestroy, OnInit {
 

@@ -14,20 +14,20 @@
   </mat-card-header>
   <mat-card-content>
     <mat-form-field>
-      <textarea matInput [readonly]="!(editing$ | async) " [(ngModel)]="cardDescription "></textarea>
+      <textarea matInput [readonly]="!(editing$ | async)" [(ngModel)]="cardDescription "></textarea>
     </mat-form-field>
-    <input [matDatepicker]="dueDatePicker " [formControl]="dueDate ">
+    <input [matDatepicker]="dueDatePicker " [formControl]="dueDate">
     <mat-datepicker-toggle matSuffix [for]="dueDatePicker "></mat-datepicker-toggle>
     <mat-datepicker #dueDatePicker></mat-datepicker>
   </mat-card-content>
   <mat-card-actions>
-    <mat-icon *ngIf="!(editing$ | async) " (click)="editing$.next(true) ">
+    <mat-icon *ngIf="!(editing$ | async)" (click)="editing$.next(true) ">
       edit
     </mat-icon>
-    <mat-icon *ngIf="editing$ | async " (click)="updateCard() ">
+    <mat-icon *ngIf="editing$ | async" (click)="updateCard() ">
       save
     </mat-icon>
-    <mat-icon *ngIf="editing$ | async " (click)="editing$.next(false) ">
+    <mat-icon *ngIf="editing$ | async" (click)="editing$.next(false) ">
       cancel
     </mat-icon>
   </mat-card-actions>
