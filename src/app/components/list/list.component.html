@@ -1,10 +1,9 @@
-<div class="list-item">
+<div class="lists-item">
   <div *ngIf="!(editing$ | async); else editListName" class="list-header">
     <h3>
       {{ listName }}
     </h3>
-    <mat-divider [vertical]="true"></mat-divider>
-    <button mat-icon-button (click)="editing$.next(true)">
+    <button *ngIf="editable" mat-icon-button (click)="editing$.next(true)">
       <mat-icon>edit</mat-icon>
     </button>
   </div>
@@ -14,16 +13,22 @@
       <mat-form-field>
         <input matInput [(ngModel)]="listName">
       </mat-form-field>
-      <mat-icon class="action-icon" (click)="onSaveListName()">save</mat-icon>
-      <mat-icon class="action-icon" (click)="editing$.next(false)">cancel</mat-icon>
+      <button mat-icon-button>
+        <mat-icon class="action-icon" (click)="onSaveListName()">save</mat-icon>
+      </button>
     </div>
   </ng-template>
 
-  <div class="cards-container" [dragula]="list?.idBoard" [dragulaModel]="cards" [attr.data-list-id]="list.id">
-    <div *ngFor="let card of cards" [attr.data-card-id]="card.id">
-      <mat-card (click)="showCardDetail(card)">
+  <div class="card-list" [dragula]="list?.idBoard" [dragulaModel]="list.cards" [attr.data-list-id]="list.id">
+    <ng-container *ngIf="(list?.cards?.length) else placeholder">
+      <mat-card (click)="showCardDetail(card)" class="card-list-item" *ngFor="let card of list?.cards" [attr.data-card-id]="card.id">
         {{ card.name }}
       </mat-card>
-    </div>
+    </ng-container>
+
+    <ng-template #placeholder>
+      <div class="dragula-placeholder-card">
+      </div>
+    </ng-template>
   </div>
 </div>

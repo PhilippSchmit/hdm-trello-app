@@ -14,6 +14,7 @@ export const buildDayGroupedList = (startDate: Date, dayRange: number): DayGroup
     .fill(undefined)
     .map((_, i) => ({
       id: generateId(),
+      name: moment(startDate).add(i, 'days').startOf('day').toDate().toLocaleDateString(),
       cards: [],
       start: moment(startDate).add(i, 'days').startOf('day').toDate(),
       end: moment(startDate).add(i, 'days').endOf('day').toDate(),

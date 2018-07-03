@@ -15,14 +15,24 @@ import { LoadingService } from '../../services';
 export class BoardListComponent implements AfterContentInit {
 
   public gridColumns$ = new BehaviorSubject(2);
+  public gridRowHeight$ = new BehaviorSubject('3:1');
   public boards$: Observable<Board[]>;
   public newBoardName: string;
+
   private gridColumnsByBreakpoint = {
     xl: 8,
     lg: 6,
     md: 4,
     sm: 2,
     xs: 1,
+  };
+
+  private gridRowHeightByBreakPoint = {
+    xl: '4:1',
+    lg: '3:1',
+    md: '2:1',
+    sm: '2:1',
+    xs: '2:1',
   };
 
   constructor(
@@ -42,9 +52,10 @@ export class BoardListComponent implements AfterContentInit {
 
     this.observableMedia
       .asObservable()
-      .subscribe(change =>
-        this.gridColumns$.next(this.gridColumnsByBreakpoint[change.mqAlias])
-      );
+      .subscribe(change => {
+        this.gridColumns$.next(this.gridColumnsByBreakpoint[change.mqAlias]);
+        this.gridRowHeight$.next(this.gridRowHeightByBreakPoint[change.mqAlias]);
+      });
   }
 
   ngAfterContentInit() {

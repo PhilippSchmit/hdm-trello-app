@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CardService } from '../../services';
+import { CardService, LoadingService } from '../../services';
 import { Observable, Subject } from 'rxjs';
 import { Card } from '../../models/card';
 import * as moment from 'moment';
@@ -28,6 +28,7 @@ export class CalendarBoardComponent implements OnDestroy, OnInit {
     private cardService: CardService,
     private dragulaService: DragulaService,
     public dialog: MatDialog,
+    private loadingService: LoadingService,
   ) {
     this.dragulaService.drop.pipe(
       takeUntil(this.destroy$),
@@ -64,24 +65,6 @@ export class CalendarBoardComponent implements OnDestroy, OnInit {
         }
       }),
     );
-  }
-
-  showCardDetail(card: any) {
-    this.cardDialogRef = this.dialog.open(
-      CardComponent, {
-        data: { card },
-        panelClass: 'card-detail-container',
-      }
-    );
-
-    this.cardDialogRef.componentInstance.delete
-      .pipe(
-        switchMap(cardId => this.cardService.deleteCardById(cardId)),
-        take(1),
-    ).subscribe(_ => {
-      this.cardDialogRef.close();
-      this.fetchCards().toPromise();
-    });
   }
 
   private handleCardDrop(cardId: string, idList: string) {

@@ -1,8 +1,6 @@
 <div class="board-header">
-  <h2>{{ boardName }}</h2>
+  <h1>{{ boardName }}</h1>
 </div>
 <div class="lists-container">
-  <div *ngFor="let list of lists$ | async">
-    <app-list [list]="list"></app-list>
-  </div>
+  <app-list [list]="list" class="lists-container-inner" *ngFor="let list of lists"></app-list>
 </div>

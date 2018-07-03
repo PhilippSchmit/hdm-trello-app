@@ -1,6 +1,8 @@
 <div class="boards-wrapper">
   <h2>All of your boards (Amount: {{ (boards$ | async)?.length }})</h2>
 
+  <mat-divider class="divider-horizontal"></mat-divider>
+
   <div class="add-board-container">
     <h4>Create a new board</h4>
     <div class="add-board-form">
@@ -14,8 +16,8 @@
     </div>
   </div>
 
-  <mat-grid-list #grid [cols]="gridColumns$ | async" gutterSize="1rem" rowHeight="3:1">
-    <mat-grid-tile class="board-list-tile" *ngFor="let board of boards$ | async" [routerLink]="['boards', board.id, board.name]">
+  <mat-grid-list #grid [cols]="gridColumns$ | async" gutterSize="1rem" [rowHeight]="gridRowHeight$ | async">
+    <mat-grid-tile class="grid-tile" *ngFor="let board of boards$ | async" [routerLink]="['boards', board.id, board.name]">
       <div class="board-list-item">
         <h3>{{ board.name }}</h3>
       </div>

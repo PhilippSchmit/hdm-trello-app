@@ -1,13 +1,23 @@
 $color-primary: #e1183a;
-$color-secondary: rgba(202, 77, 42, .8);
+$color-accent: rgba(202, 77, 42, .8);
+$color-accent-pale: rgba(236, 222, 212, .925);
+$color-secondary: rgba(255, 143, 0, 1);
+$color-secondary-80: rgba(255, 143, 0, .8);
 $color-bg: #f0f8ff;
+$color-bg-pale: rgba(255, 255, 255, .924);
 $color-bg--button: #f8f8ff;
+$color-dark: #0e0e0e;
+$color-highlight: rgba(255, 153, 80, .925);
 
 $margin: 1rem;
+$margin-small: $margin / 2;
 
 $padding: 1rem;
 $padding-large: $padding * 2;
 
+$menu-height: 100px;
 $form-field-height: 3rem;
+
+$router-container-width: calc(100vw - (2 * #{$padding-large}));
 
 $grid-gutter-size: 1rem;

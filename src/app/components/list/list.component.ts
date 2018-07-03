@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CardService } from '../../services/card/card.service';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { BehaviorSubject } from 'rxjs';
+import { MatDialog } from '@angular/material';
 import { CardComponent } from '../card/card.component';
 import { ListService } from '../../services/list/list.service';
 import { Card } from '../../models/card';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
+import { List } from '../../models/list';
 
 @Component({
   selector: 'app-list',
@@ -14,11 +15,19 @@ import { switchMap, take } from 'rxjs/operators';
 export class ListComponent implements OnInit {
 
   @Input()
-  public list;
-  public cards: Card[];
+  public set list(value: List) {
+    this._list = value;
+  }
+  public get list(): List {
+    return this._list;
+  }
+  @Input()
+  public dragulaBag: string;
+  @Input()
+  public editable = true;
   public editing$ = new BehaviorSubject<boolean>(false);
   public listName: string;
-  public cardDialogRef: MatDialogRef<CardComponent>;
+  private _list: List;
 
   constructor(
     public dialog: MatDialog,
@@ -27,36 +36,48 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fetchCards();
     this.listName = this.list.name;
   }
 
-  private async fetchCards() {
-    this.cards = await this.cardService
-      .getCardsByListId(this.list.id)
-      .toPromise();
-  }
-
-  showCardDetail(card: any) {
-    this.cardDialogRef = this.dialog.open(
+  showCardDetail(card: Card) {
+    const cardDialogRef = this.dialog.open(
       CardComponent, {
         data: { card },
         panelClass: 'card-detail-container',
       }
     );
 
-    this.cardDialogRef.componentInstance.delete
+    cardDialogRef.componentInstance.delete
       .pipe(
-        switchMap(cardId => this.cardService.deleteCardById(cardId)),
+        tap(deletedCard => {
+          // remove the deleted card item
+          const filteredCards = this._list.cards
+            .filter(cardItem => cardItem.id !== deletedCard.id);
+          this._list = {
+            ...this._list,
+            cards: filteredCards,
+          };
+        }),
+        switchMap(deletedCard => this.cardService.deleteCardById(deletedCard.id)),
         take(1),
     ).subscribe(_ => {
-      this.cardDialogRef.close({ changed: true });
-      this.fetchCards();
+      cardDialogRef.close();
     });
-  }
 
-  unshowCardDetail(card: any) {
-    this.cardDialogRef.close();
+    cardDialogRef.componentInstance.update
+      .pipe(
+        tap(changedCard => {
+          // update the changed card item
+          const filteredCards = this._list.cards
+            .filter(cardItem => cardItem.id !== changedCard.id);
+
+          this._list = {
+            ...this._list,
+            cards: [...filteredCards, changedCard],
+          };
+        }),
+        switchMap(changedCard => this.cardService.updateCardById(changedCard.id, changedCard)),
+    ).subscribe();
   }
 
   async onSaveListName() {
@@ -67,8 +88,11 @@ export class ListComponent implements OnInit {
     this.listService
       .updateListById(
         this.list.id, {
-          name: this.listName,
-        })
+        name: this.listName,
+      })
+      .pipe(
+        take(1)
+      )
       .subscribe(() => {
         this.editing$.next(false);
       });

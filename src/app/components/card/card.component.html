@@ -1,34 +1,49 @@
-<mat-card>
-  <mat-card-header class="card-header">
-    <mat-card-title>
-      <mat-form-field>
-        <input [readonly]="!(editing$ | async)" matInput [(ngModel)]="cardName">
-      </mat-form-field>
-    </mat-card-title>
-    <mat-card-actions>
+<mat-card class="card-detail" [ngClass]="{ 'editing': editing$ | async }">
+  <ng-container *ngIf="!(editing$ | async); else editCard">
+    <mat-card-header class="card-header">
+      <h2>{{ cardName }}</h2>
       <mat-icon *ngIf="!(editing$ | async)" (click)="deleteCard()">
         delete
       </mat-icon>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ card.desc }}</p>
+      <p>{{ card.due | date }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-icon (click)="editing$.next(true) ">
+        edit
+      </mat-icon>
+      <mat-icon (click)="close()">
+        cancel
+      </mat-icon>
     </mat-card-actions>
+  </ng-container>
+</mat-card>
 
+<ng-template #editCard>
+  <mat-card-header class="card-header">
+    <input matInput [(ngModel)]="card.name">
+    <mat-icon (click)="deleteCard()">
+      delete
+    </mat-icon>
   </mat-card-header>
   <mat-card-content>
-    <mat-form-field>
-      <textarea matInput [readonly]="!(editing$ | async)" [(ngModel)]="cardDescription "></textarea>
-    </mat-form-field>
-    <input [matDatepicker]="dueDatePicker " [formControl]="dueDate">
-    <mat-datepicker-toggle matSuffix [for]="dueDatePicker "></mat-datepicker-toggle>
-    <mat-datepicker #dueDatePicker></mat-datepicker>
+    <textarea matInput [(ngModel)]="card.desc"></textarea>
+    <div class="card-due-date-picker">
+      <input [matDatepicker]="dueDatePicker" placeholder="Choose a date" [(ngModel)]="card.due">
+      <mat-datepicker-toggle matSuffix [for]="dueDatePicker ">
+          <mat-icon matDatepickerToggleIcon>date_range</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #dueDatePicker></mat-datepicker>
+    </div>
   </mat-card-content>
   <mat-card-actions>
-    <mat-icon *ngIf="!(editing$ | async)" (click)="editing$.next(true) ">
-      edit
-    </mat-icon>
-    <mat-icon *ngIf="editing$ | async" (click)="updateCard() ">
+    <mat-icon (click)="updateCard() ">
       save
     </mat-icon>
-    <mat-icon *ngIf="editing$ | async" (click)="editing$.next(false) ">
+    <mat-icon (click)="editing$.next(false) ">
       cancel
     </mat-icon>
   </mat-card-actions>
-</mat-card>
+</ng-template>

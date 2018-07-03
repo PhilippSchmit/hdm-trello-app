@@ -25,7 +25,9 @@ export class CardComponent implements OnInit {
   public editing$ = new BehaviorSubject<boolean>(false);
   public dueDate = new FormControl(null);
   @Output()
-  public delete = new EventEmitter<string>();
+  public delete = new EventEmitter<Card>();
+  @Output()
+  public update = new EventEmitter<Card>();
   private cardChanged$ = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -51,18 +53,17 @@ export class CardComponent implements OnInit {
   }
 
   public updateCard() {
-    this.cardService.updateCardById(this.card.id, {
-      name: this.cardName,
-      desc: this.cardDescription,
-    }).subscribe(result => {
-      this.card = result;
-      this.editing$.next(false);
-      this.cardChanged$.next(true);
-    });
+    console.log('updated in card');
+    this.update.emit(this.card);
+    this.editing$.next(false);
   }
 
   public deleteCard() {
-    this.delete.emit(this.card.id);
+    this.delete.emit(this.card);
+  }
+
+  public close() {
+    this.dialogRef.close();
   }
 
 }

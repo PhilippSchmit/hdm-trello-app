@@ -1,20 +1,6 @@
-<h2>{{ boardName }}</h2>
+<div class="board-header">
+  <h1>Plan your week</h1>
+</div>
 <div class="lists-container">
-  <div *ngFor="let list of lists">
-    <div class="list-item">
-      <div *ngIf="!(editing$ | async); else editListName" class="list-header">
-        <h3>
-          {{ list.start | date }}
-        </h3>
-      </div>
-
-      <div class="cards-container" [dragula]="'lists-in-due-date-range'" [attr.data-list-id]="list.id">
-        <div *ngFor="let card of list?.cards" [attr.data-card-id]="card.id">
-          <mat-card (click)="showCardDetail(card)">
-            {{ card.name }}
-          </mat-card>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-list [list]="list" [editable]="false" [dragulaBag]="'lists-in-due-date-range'" class="lists-container-inner" *ngFor="let list of lists"></app-list>
 </div>
