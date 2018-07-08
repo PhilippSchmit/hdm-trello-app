@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+/* Override mat-dialog style */
+.card-detail-container .mat-dialog-container {
+  /* add your styles */
+  padding: 0;
+}

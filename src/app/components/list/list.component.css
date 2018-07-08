@@ -1,0 +1,32 @@
+.list-item > * {
+  margin: 10px;
+}
+
+.list-item h3 {
+  height: 10%;
+  text-align: center;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+}
+
+.cards-container {
+  height: 90%;
+  min-height: 100px;
+}
+
+.action-icon {
+  opacity: 0.5;
+  cursor: pointer;
+  font-size: inherit;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-icon:hover {
+  opacity: 0.8;
+}
