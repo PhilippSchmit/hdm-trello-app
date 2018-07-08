@@ -1,0 +1,324 @@
+@import './variables';
+@import './fonts';
+
+body {
+  background-color: $color-bg;
+  color: $color-dark;
+  font-family: 'Roboto Slab';
+  height: 100%;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+mat-icon {
+  display: inline;
+}
+
+mat-divider {
+  .divider-horizontal {
+    margin: $margin 0;
+  }
+}
+
+.gu-mirror {
+  background-color: $color-highlight;
+}
+
+.mat-icon-button {
+  color: $color-bg--button;
+}
+
+.mat-icon {
+  color: $color-primary;
+  cursor: pointer;
+
+}
+
+.mat-fab {
+  margin: 6px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.edit-icon {
+  opacity: .5;
+}
+
+.router-container {
+  box-sizing: border-box;
+  max-width: 100vw;
+  min-height: calc(100vh - #{$menu-height});
+  overflow-x: auto;
+  padding: 0 $padding-large $padding-large;
+}
+
+.main-nav {
+  align-items: center;
+  background-color: $color-primary;
+  display: flex;
+  height: 100px;
+  justify-content: space-between;
+  padding: 0 $padding;
+  text-align: center;
+
+  .nav-left,
+  .nav-right {
+    button {
+      margin: $margin-small;
+    }
+  }
+
+}
+
+// Override mat-dialog style
+.card-detail-container  {
+  .mat-dialog-container {
+    padding: 0;
+  }
+}
+
+.grid-tile {
+  background-color: $color-accent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($color: $color-accent, $amount: 3);
+  }
+}
+
+.action-icon {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-grow: 1;
+  font-size: 2rem;
+  justify-content: center;
+  opacity: .5;
+
+  &:hover {
+    opacity: .8;
+  }
+}
+
+.board-container {
+  background-color: $color-bg;
+  text-decoration-color: $color-primary;
+}
+
+.board-header {
+  display: flex;
+  justify-content: center;
+}
+
+.board-list-item {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  justify-content: flex-start;
+  width: 100%;
+
+  h3 {
+    margin: $margin;
+  }
+}
+
+.add-board-container {
+  .add-board-form {
+    display: flex;
+    justify-content: space-between;
+    padding: $padding 0;
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+      width: calc(50% - #{$grid-gutter-size / 2});
+    }
+
+    @media screen and (min-width: 1200px) {
+      justify-content: flex-start;
+
+      button {
+        margin-left: $margin;
+      }
+    }
+
+    button,
+    mat-form-field {
+      max-height: $form-field-height;
+    }
+
+    mat-form-field {
+      line-height: unset;
+
+      .mat-form-field-infix {
+        width: unset;
+      }
+    }
+  }
+
+  h4 {
+    margin: 0;
+    padding-top: $padding;
+  }
+}
+
+.spinner-overlay {
+  align-items: center;
+  background-color: $color-bg;
+  display: flex;
+  height: calc(100vh - 100px);
+  justify-content: center;
+  position: fixed;
+  top: $menu-height;
+  width: 100vw;
+}
+
+.lists-container {
+  display: flex;
+  margin-left: -#{$padding-large};
+  min-width: min-content;
+}
+
+.lists-container-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 50vw;
+
+  @media screen and (min-width: 768px) {
+    width: 33vw;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 25vw;
+  }
+
+  @media screen and (min-width: 1600px) {
+    width: calc(100vw / 6);
+  }
+}
+
+.lists-item {
+  min-height: 100%;
+  width: 100%;
+}
+
+.list-item {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.dragula-placeholder-card {
+  min-height: 50vh;
+  visibility: hidden;
+}
+
+.list-header {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: $padding;
+
+  h3 {
+    text-align: center;
+  }
+}
+
+.cards-container {
+  height: 90%;
+  min-height: 100px;
+}
+
+.card-list {
+  box-sizing: content-box;
+  padding: $padding;
+}
+
+.card-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: $margin 0;
+
+  h2 {
+    margin: 0;
+  }
+
+  .mat-card-header-text {
+    display: none;
+  }
+}
+
+.mat-card-title {
+  margin-bottom: 0;
+}
+
+.mat-card {
+  background-color: $color-bg;
+  max-width: 100%;
+  text-align: center;
+  width: auto;
+
+  &.card-list-item {
+    background-color: $color-accent-pale;
+    cursor: pointer;
+    max-width: 100%;
+    word-break: break-all;
+
+    &:nth-child(2) {
+      background-color: $color-bg-pale;
+    }
+
+    &:active {
+      background-color: $color-highlight;
+    }
+  }
+
+  &.card-detail {
+    min-width: 50vw;
+
+    mat-card-content {
+      p {
+        text-align: left;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      width: 50vw;
+    }
+
+    @media screen and (min-width: 1200px) {
+      width: 30vw;
+    }
+
+    .mat-card-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0 !important;
+      padding: $padding;
+    }
+
+    &.editing {
+      text-align: left;
+
+      textarea {
+        width: 100%;
+      }
+
+      // corrects the datepicker icon position
+      .mat-icon-button {
+        .mat-icon,
+        i {
+          line-height: 20px;
+        }
+      }
+    }
+
+  }
+}
+
+

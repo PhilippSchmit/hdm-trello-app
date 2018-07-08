@@ -1,0 +1,6 @@
+<div class="board-header">
+  <h1>Plan your week</h1>
+</div>
+<div class="lists-container">
+  <app-list [list]="list" [editable]="false" [dragulaBag]="'lists-in-due-date-range'" class="lists-container-inner" *ngFor="let list of lists"></app-list>
+</div>

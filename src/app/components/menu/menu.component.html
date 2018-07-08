@@ -1,50 +1,52 @@
-<mat-card >
-  <mat-card-content>
-    <div class="main-nav">
-      <div>
-        <button [routerLink]="['/']" mat-fab color="white">
-          <mat-icon>home</mat-icon>
-        </button>
-      </div>
-      <div>
-        <button mat-fab color="white" [matMenuTriggerFor]="menu">
-          <mat-icon>settings</mat-icon>
-        </button>
-
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item [matMenuTriggerFor]="subMenu">
-            <mat-icon>settings</mat-icon>
-            <span>Settings</span>
-          </button>
-          <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voicemail</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon>
-            <span>Disable alerts</span>
-          </button>
-        </mat-menu>
-
-        <button mat-fab color="white" [matMenuTriggerFor]="info">
-          <mat-icon color="">info</mat-icon>
-        </button>
-        <mat-menu #info="matMenu">
-          <button mat-menu-item>
-            <mat-icon>verified_user</mat-icon>
-            <span>Data Privacy</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>insert_emoticon</mat-icon>
-            <span>About</span>
-          </button>
-        </mat-menu>
-      </div>
+<div class="main-nav">
+  <div class="nav-left">
+    <button [routerLink]="['/']" mat-fab color="white">
+      <mat-icon>home</mat-icon>
+    </button>
   </div>
-    <mat-menu #subMenu="matMenu">
-      <button mat-menu-item>General</button>
-      <button mat-menu-item>Display</button>
-      <button mat-menu-item>Profile˚</button>
+  <div class="nav-right">
+    <button mat-fab color="white" [matMenuTriggerFor]="menu">
+      <mat-icon>settings</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="subMenu">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voicemail</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <a routerLink="calendar-board">
+          <span>Calendar</span>
+        </a>
+      </button>
     </mat-menu>
-  </mat-card-content>
-</mat-card>
+
+    <button mat-fab color="white" [matMenuTriggerFor]="info">
+      <mat-icon color="">info</mat-icon>
+    </button>
+    <mat-menu #info="matMenu">
+      <button mat-menu-item>
+        <mat-icon>verified_user</mat-icon>
+        <span>Data Privacy</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>insert_emoticon</mat-icon>
+        <span>About</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>
+<mat-menu #subMenu="matMenu">
+  <button mat-menu-item>General</button>
+  <button mat-menu-item>Display</button>
+  <button mat-menu-item>Profile˚</button>
+</mat-menu>

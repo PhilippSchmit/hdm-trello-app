@@ -1,20 +1,20 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ListService } from '../../services/list/list.service';
 import { Observable, Subject } from 'rxjs';
 import { DragulaService } from 'ng2-dragula';
-import { takeUntil, debounce, debounceTime, filter, switchMap } from 'rxjs/operators';
+import { takeUntil, filter, switchMap } from 'rxjs/operators';
 import { CardService } from '../../services/card/card.service';
 import { ActivatedRoute } from '@angular/router';
+import { List } from '../../models/list';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnDestroy, OnInit {
 
   private destroy$ = new Subject<void>();
-  public lists$: Observable<any>;
+  public lists: List[];
   public boardId: string;
   public boardName: string;
 
@@ -28,15 +28,20 @@ export class BoardComponent implements OnDestroy, OnInit {
     this.boardName = this.activatedRoute.snapshot.paramMap.get('boardName');
   }
 
-  ngOnInit() {
-    this.lists$ = this.listService
-      .getLists(this.boardId);
+  async ngOnInit() {
+    const lists = await this.listService
+      .getLists(this.boardId).toPromise();
+
+    for (const list of lists) {
+      list.cards = await this.cardService.getCardsByListId(list.id).toPromise();
+    }
+    this.lists = lists;
 
     this.dragulaService.drop
       .pipe(
         filter(([boardId]) => boardId === this.boardId),
         takeUntil(this.destroy$),
-      )
+    )
       .subscribe(([_, droppedCard, targetList]) => {
         this.handleCardDrop(
           droppedCard.dataset.cardId,

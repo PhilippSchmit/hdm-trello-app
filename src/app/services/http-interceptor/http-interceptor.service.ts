@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpResponse, HttpParams } from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpParams } from '@angular/common/http';
 
-import { Observable, of, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { UserService } from '../user/user.service';
 
 @Injectable()
-export class TrelloInterceptorService implements HttpInterceptor {
+export class HttpInterceptorService implements HttpInterceptor {
 
   constructor(
     private userService: UserService,
-  ) {}
+  ) { }
 
   intercept(
     req: HttpRequest<any>,

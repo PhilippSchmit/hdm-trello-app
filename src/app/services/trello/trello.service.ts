@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 
@@ -12,14 +11,14 @@ export class TrelloService {
 
   constructor(
     private http: HttpClient,
-  ) {}
+  ) { }
 
   public get<T>(resource: string, params?: HttpParams) {
     return this.http
       .get<T>(
         `${this.trelloApiUrl}${resource}`,
         { params },
-      );
+    );
   }
 
   public post<T>(resource: string, data: any) {
@@ -32,8 +31,8 @@ export class TrelloService {
       .put<T>(`${this.trelloApiUrl}${resource}`, data);
   }
 
-  public delete<T>(resource: string, data: any) {
+  public delete(resource: string) {
     return this.http
-      .delete<T>(`${this.trelloApiUrl}${resource}`, data);
+      .delete(`${this.trelloApiUrl}${resource}`);
   }
 }
