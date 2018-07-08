@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
     this.loading$ = this.loadingService
       .getLoadingState().pipe(
         debounceTime(200),
-        tap(console.log),
     );
   }
 
