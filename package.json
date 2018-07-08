@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "git subtree push --prefix dist/trelloapp27940 origin gh-pages"
+    "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "private": true,
   "dependencies": {
