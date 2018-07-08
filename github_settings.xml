@@ -1,6 +1,7 @@
 <application>
   <component name="GithubSettings">
+    <option name="LOGIN" value="ps091@hdm-stuttgart.de" />
     <option name="HOST" value="https://github.com/PhilippSchmit/hdm-trello-app.git" />
-    <option name="AUTH_TYPE" value="TOKEN" />
+    <option name="AUTH_TYPE" value="BASIC" />
   </component>
 </application>
