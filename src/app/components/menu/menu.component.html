@@ -1,32 +1,21 @@
 <div class="main-nav">
   <div class="nav-left">
-    <button [routerLink]="['/']" mat-fab color="white">
-      <mat-icon>home</mat-icon>
-    </button>
+    <img class="main-logo" src="assets/img/logo.png">
   </div>
   <div class="nav-right">
-    <button mat-fab color="white" [matMenuTriggerFor]="menu">
-      <mat-icon>settings</mat-icon>
-    </button>
 
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [matMenuTriggerFor]="subMenu">
-        <mat-icon>settings</mat-icon>
-        <span>Settings</span>
+    <button mat-fab color="white" [matMenuTriggerFor]="homeMenu">
+      <mat-icon>home</mat-icon>
+    </button>
+    
+    <mat-menu #homeMenu="matMenu">
+      <button routerLink="/" mat-menu-item>
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
       </button>
-      <button mat-menu-item disabled>
-        <mat-icon>voicemail</mat-icon>
-        <span>Check voicemail</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Disable alerts</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <a routerLink="calendar-board">
-          <span>Calendar</span>
-        </a>
+      <button mat-menu-item routerLink="calendar-board">
+        <mat-icon>calendar_today</mat-icon>
+        <span>Calendar</span>
       </button>
     </mat-menu>
 
@@ -34,11 +23,7 @@
       <mat-icon color="">info</mat-icon>
     </button>
     <mat-menu #info="matMenu">
-      <button mat-menu-item>
-        <mat-icon>verified_user</mat-icon>
-        <span>Data Privacy</span>
-      </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="showAboutDialog()">
         <mat-icon>insert_emoticon</mat-icon>
         <span>About</span>
       </button>
