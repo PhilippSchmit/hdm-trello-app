@@ -53,7 +53,6 @@ export class CardComponent implements OnInit {
   }
 
   public updateCard() {
-    console.log('updated in card');
     this.update.emit(this.card);
     this.editing$.next(false);
   }

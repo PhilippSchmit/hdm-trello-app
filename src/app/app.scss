@@ -73,6 +73,19 @@ mat-divider {
 
 }
 
+.about-dialog-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main-logo {
+  border: 2px solid white;
+  border-radius: 50%;
+  height: $main-logo-height;
+  margin: .5rem;
+  width: auto;
+}
+
 // Override mat-dialog style
 .card-detail-container  {
   .mat-dialog-container {

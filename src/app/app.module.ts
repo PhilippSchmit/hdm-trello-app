@@ -40,6 +40,7 @@ import {
   TrelloService,
 } from './services';
 import { ObservableMediaProvider } from '@angular/flex-layout';
+import { AboutDialogComponent } from './components/about-dialog/about-dialog.component';
 
 registerLocaleData(localeDe, 'de');
 
@@ -52,8 +53,10 @@ registerLocaleData(localeDe, 'de');
     ListComponent,
     BoardListComponent,
     CalendarBoardComponent,
+    AboutDialogComponent,
   ],
   entryComponents: [
+    AboutDialogComponent,
     CardComponent,
   ],
   imports: [
